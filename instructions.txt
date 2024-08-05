@@ -2,9 +2,35 @@ backend-only project (with db and docker)
 
 npm init -y
 
-npm install express ts-node dotenv axios typescript cors path
+npm install express ts-node dotenv axios typescript cors path pg
 
 touch .env
 touch .gitignore
 
 add .env and \node_modules to gitignore
+
+add this to package.json
+
+"  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "build": "npm install && npm run build"
+  },
+
+"
+
+
+start application
+
+docker-compose down
+
+docker volume rm cryptocurrencypriceapi-postgres-docker-try2_pgdata
+
+docker-compose up --build
+
+
+check container database
+
+docker exec -it cryptocurrencypriceapi-postgres-docker-try2_db_1 psql -U postgres -d eventLogger
+
+SELECT * FROM price_data;

@@ -2,13 +2,11 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const { exec } = require('child_process');
-const pool = require('../backend/database/dbConfig');  // Import the database configuration
+const pool = require('./database/dbConfig');  // Import the database configuration
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
-app.use(cors({ origin: 'http://localhost:3000' }));
-app.use(express.static(path.resolve(__dirname, '../frontend/build')));
 app.use(express.json()); // To parse JSON bodies
 
 function extractValue(key, output) {
@@ -24,7 +22,7 @@ app.post('/start', (req, res) => {
     return res.status(400).send('Missing required fields');
   }
 
-  const command = `node ./backend/scripts/monitorPrice.js ${pair} ${fetchInterval} ${priceOscillationTrigger}`;
+  const command = `node ./scripts/monitorPrice.js ${pair} ${fetchInterval} ${priceOscillationTrigger}`;
 
   exec(command, (error, stdout, stderr) => {
     if (error) {
@@ -71,7 +69,7 @@ app.post('/start', (req, res) => {
 app.get('/price/:pair', (req, res) => {
   const pair = req.params.pair;
 
-  const command = `node ./backend/scripts/priceFetch.js ${pair}`;
+  const command = `node ./scripts/priceFetch.js ${pair}`;
 
   exec(command, (error, stdout, stderr) => {
     if (error) {
