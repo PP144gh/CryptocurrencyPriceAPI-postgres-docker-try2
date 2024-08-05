@@ -1,0 +1,10 @@
+backend-only project (with db and docker)
+
+npm init -y
+
+npm install express ts-node dotenv axios typescript cors path
+
+touch .env
+touch .gitignore
+
+add .env and \node_modules to gitignore
