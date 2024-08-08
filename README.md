@@ -88,3 +88,8 @@ response:
 
 Stopped monitoring for session: SOL-USD-5000-0.0001 , 
 No process running for session: SOL-USD-5000-0.0001
+
+## test
+```
+npm test
+```

@@ -4,7 +4,7 @@
   "description": "This was a technical assessment in an interview process I was in. This try has no frontend and is only focused on the backend part, which is severely improved in comparison to try #1. One can make requests to it via Postman.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node index.js",
     "build": "npm install && npm run build"
   },
@@ -29,5 +29,9 @@
     "pg": "^8.12.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
   }
 }
