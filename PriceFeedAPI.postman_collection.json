@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "8cc148dd-b400-48cf-bc83-27ee5ae41e15",
+		"name": "PriceFeedAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29759914"
+	},
+	"item": [
+		{
+			"name": "start",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pair\" : \"BTC-USD\",\n    \"fetchInterval\" : \"5000\",\n    \"priceOscillationTrigger\" : \"0.01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pair\" : \"BTC-USD\",\n    \"fetchInterval\" : \"5000\",\n    \"priceOscillationTrigger\" : \"0.01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "price",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pair\" : \"BTC-USD\",\n    \"fetchInterval\" : \"5000\",\n    \"priceOscillationTrigger\" : \"0.01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"start"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

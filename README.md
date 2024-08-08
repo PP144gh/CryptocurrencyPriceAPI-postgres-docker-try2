@@ -1,30 +1,90 @@
 # Price feed API alerts + database + docker assessment try #2
 
 This was a technical assessment in an interview process I was in. This try has no frontend and is only focused on the backend part, which is severely improved in comparison to try #1. One can make requests to it via Postman.
+The backend queries a cryptocurrency price API. The exposed endpoints are:
 
-IMPROVE
-The backend queries a cryptocurrency price API. In the front-end one introduces the needed inputs  - Pair, Fetch Interval and Price Oscillation Trigger - and presses start. The alerts that are generated are shown in the frontend and stored in a postgres database.
+http://localhost:3001/price/BTC-USD
+
+http://localhost:3001/start with example body
+```json
+{
+    "pair" : "SOL-USD",
+    "fetchInterval" : "5000",
+    "priceOscillationTrigger" : "0.0001"
+}"
+```
+
+and http://localhost:3001/stop
+
+with example body
+```json
+{
+    "pair" : "ETH-USD",
+    "fetchInterval" : "5000",
+    "priceOscillationTrigger" : "0.0001"
+}
+```
+
+See the Postman collection in file PriceFeedAPI.postman_collection.json
+
+
+The /start creates a monitoring process that compares prices after fetchInterval ms and emits an alert and stores the values in the db if the price oscillated more than priceOscillationTrigger % in the given fetch interval. The pair-fetchInterval-priceOscillationTrigger is a unique identifier of the monitoring process.
+
+The /stop stops the monitoring of a given monitoring process, identified by pair-fetchInterval-priceOscillationTrigger.
 
 ## setup instructions:
 
 have docker installed.
 
-### in root:
+### running the project
+in root directory:
 
-docker-compose up --build
+```
+chmod +x run.sh
+./run.sh
+```
 
-## Request example
+## Request/response examples
 
-IMPROVE
+### 1
+request: http://localhost:3001/price/BTC-USD 
 
-In the browser fill the input fields (Pair, Fetch Interval and Price Oscillation Trigger) and press start. 
+response:
+```json
+{
+    "pair": "BTC-USD",
+    "price": "57245.0366226897",
+    "timestamp": "2024-08-08T09:34:00.314Z"
+}
+```
 
-Example inputs:
+### 2
+request: http://localhost:3001/start with example body
 
-ETH-USD 5000 0.01
+```json
+{
+    "pair" : "SOL-USD",
+    "fetchInterval" : "5000",
+    "priceOscillationTrigger" : "0.0001"
+}
+```
 
-The alerts will show in the Alerts list, and added to a database. You can check the database entries doing:
+response: 
 
-docker exec -it cryptocurrencypriceapi-postgres-docker-try1_db_1 psql -U postgres -d eventLogger
+Started monitoring for session: SOL-USD-5000-0.0001 , 
+Process already running for session: SOL-USD-5000-0.0001
 
-SELECT * FROM price_data;
+### 3
+request: http://localhost:3001/stop with example body
+```json
+{
+    "pair" : "ETH-USD",
+    "fetchInterval" : "5000",
+    "priceOscillationTrigger" : "0.0001"
+}
+```
+
+response: 
+
+Stopped monitoring for session: SOL-USD-5000-0.0001 , 
+No process running for session: SOL-USD-5000-0.0001
